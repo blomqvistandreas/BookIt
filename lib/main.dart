@@ -1,4 +1,5 @@
 import 'package:bookit_app/bottom_navbar.dart';
+import 'package:bookit_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -10,12 +11,13 @@ class MyApp extends StatelessWidget {
       title: 'BookIt',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Book it'),
-            //iconTheme: Icon(Icons.school),
-            backgroundColor: Colors.amber[700],
-          ),
-          bottomNavigationBar: BottomNavbar()),
+        appBar: AppBar(
+          title: Text('Book it'),
+          //iconTheme: Icon(Icons.school),
+          backgroundColor: Colors.amber[700],
+        ),
+        body: Routes(),
+      ),
     );
   }
 }
