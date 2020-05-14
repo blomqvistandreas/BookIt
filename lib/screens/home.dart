@@ -1,7 +1,8 @@
-import 'package:bookit_app/screens/buy.dart';
-import 'package:bookit_app/screens/overview.dart';
-import 'package:bookit_app/screens/sell.dart';
-import 'package:bookit_app/screens/trade.dart';
+import 'package:bookit_app/screens/advert.dart';
+import 'package:bookit_app/screens/createadvert.dart';
+import 'package:bookit_app/screens/notification.dart';
+import 'package:bookit_app/screens/profile.dart';
+import 'package:bookit_app/screens/search.dart';
 import 'package:flutter/material.dart';
 
 class Routes extends StatefulWidget {
@@ -13,13 +14,14 @@ class _RoutesState extends State<Routes> {
   int currentTab = 0;
 
   final List<Widget> screens = [
-    BuyScreen(),
-    SellScreen(),
-    TradeScreen(),
-    OverviewScreen(),
+    SearchScreen(),
+    AdvertScreen(),
+    NotificationScreen(),
+    ProfileScreen(),
+    CreateAdvert(),
   ];
 
-  Widget currentScreen = BuyScreen();
+  Widget currentScreen = SearchScreen();
 
   final PageStorageBucket bucket = PageStorageBucket();
 
@@ -34,7 +36,10 @@ class _RoutesState extends State<Routes> {
         child: Icon(Icons.add),
         backgroundColor: Colors.amber[700],
         onPressed: () {
-          print('Open create book page');
+          setState(() {
+            currentScreen = CreateAdvert();
+            currentTab = 5;
+          });
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -46,7 +51,7 @@ class _RoutesState extends State<Routes> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 16),
+                padding: EdgeInsets.only(left: 10),
                 child: Row(
                   children: [
                     //TODO: Extract these to one component...
@@ -54,7 +59,7 @@ class _RoutesState extends State<Routes> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = BuyScreen();
+                          currentScreen = SearchScreen();
                           currentTab = 0;
                         });
                       },
@@ -66,7 +71,7 @@ class _RoutesState extends State<Routes> {
                             color: currentTab == 0 ? Colors.amber : Colors.grey,
                           ),
                           Text(
-                            'Köpa',
+                            'Sök',
                             style: TextStyle(
                                 color: currentTab == 0
                                     ? Colors.amber
@@ -75,12 +80,11 @@ class _RoutesState extends State<Routes> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 10),
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = SellScreen();
+                          currentScreen = AdvertScreen();
                           currentTab = 1;
                         });
                       },
@@ -88,11 +92,11 @@ class _RoutesState extends State<Routes> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.attach_money,
+                            Icons.format_list_bulleted,
                             color: currentTab == 1 ? Colors.amber : Colors.grey,
                           ),
                           Text(
-                            'Sälja',
+                            'Annonser',
                             style: TextStyle(
                                 color: currentTab == 1
                                     ? Colors.amber
@@ -105,7 +109,7 @@ class _RoutesState extends State<Routes> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 6),
+                padding: EdgeInsets.only(right: 10),
                 child: Row(
                   children: [
                     //TODO: Extract these to one component...
@@ -113,7 +117,7 @@ class _RoutesState extends State<Routes> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = TradeScreen();
+                          currentScreen = NotificationScreen();
                           currentTab = 2;
                         });
                       },
@@ -121,11 +125,11 @@ class _RoutesState extends State<Routes> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.search,
+                            Icons.notifications,
                             color: currentTab == 2 ? Colors.amber : Colors.grey,
                           ),
                           Text(
-                            'Byta',
+                            'Notiser',
                             style: TextStyle(
                                 color: currentTab == 2
                                     ? Colors.amber
@@ -134,12 +138,11 @@ class _RoutesState extends State<Routes> {
                         ],
                       ),
                     ),
-
                     MaterialButton(
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = OverviewScreen();
+                          currentScreen = ProfileScreen();
                           currentTab = 3;
                         });
                       },
@@ -147,11 +150,11 @@ class _RoutesState extends State<Routes> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.attach_money,
+                            Icons.person,
                             color: currentTab == 3 ? Colors.amber : Colors.grey,
                           ),
                           Text(
-                            'Översikt',
+                            'Profil',
                             style: TextStyle(
                                 color: currentTab == 3
                                     ? Colors.amber
