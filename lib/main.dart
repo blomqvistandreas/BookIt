@@ -1,6 +1,7 @@
 import 'package:bookit_app/screens/home.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Colors;
 import 'package:flutter/services.dart';
+import 'package:bookit_app/styles/colors.dart';
 
 //TODO: Montserrat
 
@@ -17,12 +18,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BookIt',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      //theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Book it'),
-          backgroundColor: Colors.amber[700],
-        ),
+        appBar: AppBar(title: Text('Book it'), backgroundColor: Colors.primary),
         body: Routes(),
       ),
     );

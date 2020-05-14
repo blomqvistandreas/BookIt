@@ -3,7 +3,8 @@ import 'package:bookit_app/screens/createadvert.dart';
 import 'package:bookit_app/screens/notification.dart';
 import 'package:bookit_app/screens/profile.dart';
 import 'package:bookit_app/screens/search.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Colors;
+import 'package:bookit_app/styles/colors.dart';
 
 class Routes extends StatefulWidget {
   @override
@@ -32,143 +33,83 @@ class _RoutesState extends State<Routes> {
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Colors.amber[700],
-        onPressed: () {
-          setState(() {
-            currentScreen = CreateAdvert();
-            currentTab = 5;
-          });
-        },
-      ),
+      floatingActionButton: buildFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    //TODO: Extract these to one component...
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = SearchScreen();
-                          currentTab = 0;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search,
-                            color: currentTab == 0 ? Colors.amber : Colors.grey,
-                          ),
-                          Text(
-                            'Sök',
-                            style: TextStyle(
-                                color: currentTab == 0
-                                    ? Colors.amber
-                                    : Colors.grey),
-                          )
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = AdvertScreen();
-                          currentTab = 1;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.format_list_bulleted,
-                            color: currentTab == 1 ? Colors.amber : Colors.grey,
-                          ),
-                          Text(
-                            'Annonser',
-                            style: TextStyle(
-                                color: currentTab == 1
-                                    ? Colors.amber
-                                    : Colors.grey),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+      bottomNavigationBar: buildBottomAppBar(),
+    );
+  }
+
+  FloatingActionButton buildFloatingActionButton() {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      backgroundColor: Colors.primary,
+      onPressed: () {
+        setState(() {
+          currentScreen = CreateAdvert();
+          currentTab = 5;
+        });
+      },
+    );
+  }
+
+  BottomAppBar buildBottomAppBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      child: Container(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  buildMaterialButton("Sök", Icons.search, 0, SearchScreen()),
+                  buildMaterialButton("Annonser", Icons.format_list_bulleted, 1,
+                      AdvertScreen()),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: Row(
-                  children: [
-                    //TODO: Extract these to one component...
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = NotificationScreen();
-                          currentTab = 2;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.notifications,
-                            color: currentTab == 2 ? Colors.amber : Colors.grey,
-                          ),
-                          Text(
-                            'Notiser',
-                            style: TextStyle(
-                                color: currentTab == 2
-                                    ? Colors.amber
-                                    : Colors.grey),
-                          )
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = ProfileScreen();
-                          currentTab = 3;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.person,
-                            color: currentTab == 3 ? Colors.amber : Colors.grey,
-                          ),
-                          Text(
-                            'Profil',
-                            style: TextStyle(
-                                color: currentTab == 3
-                                    ? Colors.amber
-                                    : Colors.grey),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Row(
+                children: [
+                  buildMaterialButton(
+                      "Notiser", Icons.notifications, 2, NotificationScreen()),
+                  buildMaterialButton(
+                      "Profil", Icons.person, 3, ProfileScreen()),
+                ],
+              ),
+            )
+          ],
         ),
+      ),
+    );
+  }
+
+  MaterialButton buildMaterialButton(title, icon, currentTabNum, destination) {
+    return MaterialButton(
+      minWidth: 40,
+      onPressed: () {
+        setState(() {
+          currentScreen = destination;
+          currentTab = currentTabNum;
+        });
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: currentTab == currentTabNum ? Colors.primary : Colors.grey,
+          ),
+          Text(
+            title,
+            style: TextStyle(
+                color:
+                    currentTab == currentTabNum ? Colors.primary : Colors.grey),
+          )
+        ],
       ),
     );
   }
