@@ -42,7 +42,6 @@ class _RoutesState extends State<Routes> {
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
       child: Icon(Icons.add),
-      backgroundColor: Colors.primary,
       onPressed: () {
         setState(() {
           currentScreen = CreateAdvert();
@@ -101,13 +100,16 @@ class _RoutesState extends State<Routes> {
         children: [
           Icon(
             icon,
-            color: currentTab == currentTabNum ? Colors.primary : Colors.grey,
+            color: currentTab == currentTabNum
+                ? Theme.of(context).primaryColor
+                : Colors.grey,
           ),
           Text(
             title,
             style: TextStyle(
-                color:
-                    currentTab == currentTabNum ? Colors.primary : Colors.grey),
+                color: currentTab == currentTabNum
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey),
           )
         ],
       ),

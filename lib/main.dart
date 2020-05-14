@@ -2,8 +2,7 @@ import 'package:bookit_app/screens/home.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:flutter/services.dart';
 import 'package:bookit_app/styles/colors.dart';
-
-//TODO: Montserrat
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,14 +14,41 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    /*SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    );*/
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.primary,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BookIt',
-      //theme: ThemeData(primarySwatch: Colors.blue),
+      theme: buildThemeData(context),
       home: Scaffold(
-        appBar: AppBar(title: Text('Book it'), backgroundColor: Colors.primary),
+        /*appBar: AppBar(
+          title: Text('BookIt', style: Theme.of(context).textTheme.headline),
+          brightness: Theme.of(context).brightness,
+        ),*/
         body: Routes(),
       ),
+    );
+  }
+
+  ThemeData buildThemeData(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return ThemeData(
+      textTheme: GoogleFonts.montserratTextTheme(textTheme),
+      primaryColor: Colors.primary,
+      //brightness: Brightness.light,
+      floatingActionButtonTheme:
+          FloatingActionButtonThemeData(backgroundColor: Colors.primary),
     );
   }
 }
