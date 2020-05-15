@@ -4,7 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MyApp());
+void main() => {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.primary,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+      ),
+      runApp(
+        MyApp(),
+      )
+    };
 
 class MyApp extends StatefulWidget {
   @override
@@ -17,15 +29,6 @@ class _MyAppState extends State<MyApp> {
     /*SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
     );*/
-
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.primary,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -46,7 +49,6 @@ class _MyAppState extends State<MyApp> {
     return ThemeData(
       textTheme: GoogleFonts.montserratTextTheme(textTheme),
       primaryColor: Colors.primary,
-      //brightness: Brightness.light,
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: Colors.primary),
     );
