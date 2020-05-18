@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bookit_app/utils/dummyData.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -8,49 +9,7 @@ class SearchScreen extends StatefulWidget {
 //TODO: Overflowing text!
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<String> items = <String>[
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-  ];
-
-  final List<String> _dummyBookTitles = <String>[
-    'End the Ocean',
-    'Hijas Sur',
-    'Corporate: Gunslinger',
-    'Chaos reigning',
-    'Polaris rising',
-    'Aurora blazing',
-    'Cold between',
-    'Executive intent',
-    'Shadow command',
-    'Arthur christmas',
-    'Tom Felsom: Hopper',
-  ];
-
-  final List<String> _dummyBookPrice = <String>[
-    '650',
-    '375',
-    '499',
-    '299',
-    '170',
-    '800',
-    '230',
-    '99',
-    '400',
-    '120',
-    '399',
-  ];
-
-  final List<String> _dummyBookCovers = <String>[
-    'https://i.harperapps.com/covers/9780062951366/x300.jpg',
-    'https://i.harperapps.com/covers/9788491393900/x300.jpg',
-    'https://i.harperapps.com/covers/9780062897688/x300.jpg',
-    'https://i.harperapps.com/covers/9780062802439/x300.jpg',
-    'https://i.harperapps.com/covers/9780062802408/x300.jpg',
-    'https://i.harperapps.com/covers/9780062802460/x300.jpg',
+  final List<String> _dummyTrendingCovers = <String>[
     'https://i.harperapps.com/covers/9780062413666/x300.jpg',
     'https://i.harperapps.com/covers/9780061560903/x300.jpg',
     'https://i.harperapps.com/covers/9780061173721/x300.jpg',
@@ -63,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: _dummyBookCovers.length + 2,
+        itemCount: _dummyTrendingCovers.length + 3,
         itemBuilder: (context, index) {
           if (index == 0)
             return _defaultTitleContainer("Populära");
@@ -85,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, index) => _trendingBookComponent(index),
-        itemCount: _dummyBookCovers.length,
+        itemCount: _dummyTrendingCovers.length,
       ),
     );
   }
@@ -110,10 +69,14 @@ class _SearchScreenState extends State<SearchScreen> {
       margin: EdgeInsets.only(right: 6),
       decoration: BoxDecoration(
         image: new DecorationImage(
-            image: new NetworkImage(_dummyBookCovers[index]), fit: BoxFit.fill),
+            image: new NetworkImage(_dummyTrendingCovers[index]),
+            fit: BoxFit.fill),
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
+      ),
+      child: FlatButton(
+        onPressed: () {},
       ),
     );
   }
@@ -145,7 +108,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 Radius.circular(10),
               ),
               image: new DecorationImage(
-                  image: new NetworkImage(_dummyBookCovers[resetIndex]),
+                  image: new NetworkImage(
+                    dummyData[resetIndex]['image'],
+                  ),
                   fit: BoxFit.fill),
             ),
           ),
@@ -156,31 +121,33 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Column column(resetIndex) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          _dummyBookTitles[resetIndex],
-          style: TextStyle(fontSize: 19),
-          overflow: TextOverflow.fade,
-          maxLines: 10,
-        ),
-        // Author
-        Text(
-          "By Andreas Blomqvist",
-          style: TextStyle(fontSize: 10),
-        ),
-        SizedBox(height: 20),
-        Text(
-          "• " +
-              _dummyBookPrice[resetIndex] +
-              " kr\n" +
-              "• Göteborg \n" +
-              "• Byta",
-        ),
-      ],
+  Expanded column(resetIndex) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            dummyData[resetIndex]['title'],
+            style: TextStyle(fontSize: 19),
+            overflow: TextOverflow.fade,
+            maxLines: 10,
+          ),
+          // Author
+          Text(
+            "By " + dummyData[resetIndex]['author'],
+            style: TextStyle(fontSize: 10),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "• " +
+                dummyData[resetIndex]['price'] +
+                " kr\n" +
+                "• Göteborg \n" +
+                "• Byta",
+          ),
+        ],
+      ),
     );
   }
 }
