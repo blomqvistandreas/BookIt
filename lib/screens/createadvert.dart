@@ -1,20 +1,19 @@
-import 'package:bookit_app/widgets/DefaultDialog.dart';
+import 'package:bookit_app/widgets/DefaultTextField.dart';
 import 'package:flutter/material.dart';
 
-class CreateAdvert extends StatefulWidget {
-  @override
-  _CreateAdvertState createState() => _CreateAdvertState();
-}
-
-class _CreateAdvertState extends State<CreateAdvert> {
+class CreateAdvert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          DefaultDialog(),
-        ],
-      ),
+    return Column(
+      children: [
+        // Kan vara del utav DefaultHeader, ta in icon / onpress
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.close),
+        ),
+      ],
     );
   }
 }

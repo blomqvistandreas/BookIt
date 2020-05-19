@@ -5,6 +5,7 @@ import 'package:bookit_app/screens/profile.dart';
 import 'package:bookit_app/screens/search.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/styles/colors.dart';
+import 'package:bookit_app/widgets/DefaultDialog.dart';
 
 class Routes extends StatefulWidget {
   @override
@@ -45,10 +46,7 @@ class _RoutesState extends State<Routes> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-        setState(() {
-          currentScreen = CreateAdvert();
-          currentTab = 5;
-        });
+        createDefaultDialog(context, CreateAdvert());
       },
     );
   }
