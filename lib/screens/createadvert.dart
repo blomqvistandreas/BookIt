@@ -1,3 +1,4 @@
+import 'package:bookit_app/widgets/DefaultDialog.dart';
 import 'package:flutter/material.dart';
 
 class CreateAdvert extends StatefulWidget {
@@ -9,8 +10,10 @@ class _CreateAdvertState extends State<CreateAdvert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Create Advert, maybe modal?'),
+      body: Row(
+        children: [
+          DefaultDialog(),
+        ],
       ),
     );
   }

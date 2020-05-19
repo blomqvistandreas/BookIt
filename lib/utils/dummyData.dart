@@ -52,7 +52,7 @@ var dummyData = [
   {
     "id": 6,
     "title": "Aurora blazing",
-    "author": "Jossan",
+    "author": "Ben",
     "image": "https://i.harperapps.com/covers/9780062802460/x300.jpg",
     "description": "",
     "typeOfTrade": "",
