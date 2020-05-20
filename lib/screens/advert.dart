@@ -8,9 +8,6 @@ class AdvertScreen extends StatefulWidget {
   _AdvertScreenState createState() => _AdvertScreenState();
 }
 
-//TODO: Dummy data
-var closedAdverts = [];
-
 class _AdvertScreenState extends State<AdvertScreen> {
   //TODO: Filtering my books? Create a list when adding new advert?
   var filteredData = dummyData.where((item) => item['author'] == "Ben");
