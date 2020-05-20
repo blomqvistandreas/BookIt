@@ -1,4 +1,5 @@
 import 'package:bookit_app/widgets/DefaultAddImage.dart';
+import 'package:bookit_app/widgets/DefaultDropdown.dart';
 import 'package:bookit_app/widgets/DefaultHeader.dart';
 import 'package:bookit_app/widgets/DefaultTextField.dart';
 import 'package:flutter/material.dart';
@@ -57,15 +58,8 @@ class CreateAdvert extends StatelessWidget {
                 child: DefaultAddImage(),
               ),
             ),
-            DropdownButton<String>(
-              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                return new DropdownMenuItem<String>(
-                  value: value,
-                  child: new Text(value),
-                );
-              }).toList(),
-              onChanged: (_) {},
-            )
+            SizedBox(height: 20),
+            DefaultDropdown(),
           ],
         ),
       ),

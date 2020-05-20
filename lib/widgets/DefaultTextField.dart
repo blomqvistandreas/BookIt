@@ -16,6 +16,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 60,
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
         textCapitalization: TextCapitalization.sentences,

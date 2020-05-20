@@ -66,9 +66,6 @@ class _SearchScreenState extends State<SearchScreen> {
           Radius.circular(10),
         ),
       ),
-      child: FlatButton(
-        onPressed: () {},
-      ),
     );
   }
 }
