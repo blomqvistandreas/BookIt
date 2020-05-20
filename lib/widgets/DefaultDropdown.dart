@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:bookit_app/styles/colors.dart';
+import 'package:flutter/material.dart' hide Colors;
 
 class DefaultDropdown extends StatefulWidget {
   @override
@@ -6,8 +7,9 @@ class DefaultDropdown extends StatefulWidget {
 }
 
 class _DefaultDropdownState extends State<DefaultDropdown> {
-  var _listItems = ['A', 'B', 'C', 'D', 'E'];
-  var _currentItemSelected = 'C';
+  var _listItems = ['A', 'B'];
+  var _currentItemSelected = 'A';
+  var _haveSelectedItem = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: Colors.grey,
+            color: _haveSelectedItem ? Colors.primary : Colors.grey,
           ),
         ),
         child: Padding(
@@ -32,7 +34,12 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
                   value: value,
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(value),
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        color: _haveSelectedItem ? Colors.primary : Colors.grey,
+                      ),
+                    ),
                   ),
                 );
               }).toList(),

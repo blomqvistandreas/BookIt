@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
     return ThemeData(
       textTheme: GoogleFonts.montserratTextTheme(textTheme),
       primaryColor: Colors.primary,
+      hintColor: Colors.grey,
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: Colors.primary),
     );
