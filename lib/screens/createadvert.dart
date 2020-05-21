@@ -8,6 +8,11 @@ class CreateAdvert extends StatelessWidget {
   final controllerTitle = TextEditingController();
   final controllerAuthor = TextEditingController();
 
+  List<String> _listItems = [
+    "Jag tänker posta boken",
+    "Jag föredrar att byta boken"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +75,10 @@ class CreateAdvert extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            DefaultDropdown(),
+            DefaultDropdown(
+              listItems: _listItems,
+              currentItemSeleted: _listItems[0],
+            ),
           ],
         ),
       ),

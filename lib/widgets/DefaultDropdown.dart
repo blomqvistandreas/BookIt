@@ -2,15 +2,28 @@ import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
 class DefaultDropdown extends StatefulWidget {
+  final List<String> listItems;
+  final String currentItemSeleted;
+  final bool haveSelectedItem;
+
+  const DefaultDropdown(
+      {Key key,
+      this.listItems,
+      this.currentItemSeleted,
+      this.haveSelectedItem = false})
+      : super(key: key);
+
+  get currentItemSelected => this.currentItemSeleted;
+
+  set currentItemSelected(String currentItemSelected) {
+    currentItemSelected = this.currentItemSelected;
+  }
+
   @override
   _DefaultDropdownState createState() => _DefaultDropdownState();
 }
 
 class _DefaultDropdownState extends State<DefaultDropdown> {
-  var _listItems = ['A', 'B'];
-  var _currentItemSelected = 'A';
-  var _haveSelectedItem = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,7 +34,7 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: _haveSelectedItem ? Colors.primary : Colors.grey,
+            color: widget.haveSelectedItem ? Colors.primary : Colors.grey,
           ),
         ),
         child: Padding(
@@ -29,7 +42,7 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               isExpanded: true,
-              items: _listItems.map((String value) {
+              items: widget.listItems.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Align(
@@ -37,7 +50,9 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
                     child: Text(
                       value,
                       style: TextStyle(
-                        color: _haveSelectedItem ? Colors.primary : Colors.grey,
+                        color: widget.haveSelectedItem
+                            ? Colors.primary
+                            : Colors.grey,
                       ),
                     ),
                   ),
@@ -45,10 +60,13 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
               }).toList(),
               onChanged: (String newValue) {
                 setState(() {
-                  _currentItemSelected = newValue;
+                  print("newValue: $newValue");
+                  print("ItemUpdate: ${widget.currentItemSelected}");
+                  widget.currentItemSelected = newValue;
+                  print("ItemUpdate: ${widget.currentItemSelected}");
                 });
               },
-              value: _currentItemSelected,
+              value: widget.currentItemSelected,
             ),
           ),
         ),
