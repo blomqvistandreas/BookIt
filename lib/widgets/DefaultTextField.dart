@@ -13,6 +13,9 @@ class DefaultTextField extends StatefulWidget {
 }
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
+  // TODO: Have typed something
+  var _didInputText = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,13 +25,23 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
         textCapitalization: TextCapitalization.sentences,
         controller: widget.controller,
         cursorColor: Colors.primary,
-        cursorRadius: Radius.circular(10.0),
-        cursorWidth: 16.0,
+        cursorRadius: Radius.circular(20),
+        cursorWidth: 17.0,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.primary, width: 2.0),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: _didInputText ? Colors.primary : Colors.grey,
+                width: 2.0),
             borderRadius: BorderRadius.circular(20),
           ),
           labelText: widget.label,
+          labelStyle: TextStyle(
+            color: _didInputText ? Colors.primary : Colors.grey,
+          ),
         ),
       ),
     );

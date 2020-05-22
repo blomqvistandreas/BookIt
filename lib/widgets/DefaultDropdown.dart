@@ -34,6 +34,7 @@ class _DefaultDropdownState extends State<DefaultDropdown> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
+            width: 2.0,
             color: widget.haveSelectedItem ? Colors.primary : Colors.grey,
           ),
         ),

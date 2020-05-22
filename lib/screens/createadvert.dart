@@ -1,4 +1,5 @@
 import 'package:bookit_app/widgets/DefaultAddImage.dart';
+import 'package:bookit_app/widgets/DefaultButton.dart';
 import 'package:bookit_app/widgets/DefaultDropdown.dart';
 import 'package:bookit_app/widgets/DefaultHeader.dart';
 import 'package:bookit_app/widgets/DefaultTextField.dart';
@@ -8,7 +9,7 @@ class CreateAdvert extends StatelessWidget {
   final controllerTitle = TextEditingController();
   final controllerAuthor = TextEditingController();
 
-  List<String> _listItems = [
+  final List<String> _listItems = [
     "Jag tänker posta boken",
     "Jag föredrar att byta boken"
   ];
@@ -78,6 +79,13 @@ class CreateAdvert extends StatelessWidget {
             DefaultDropdown(
               listItems: _listItems,
               currentItemSeleted: _listItems[0],
+            ),
+            SizedBox(height: 40),
+            DefaultButton(
+              title: "Fortsätt",
+              onPressed: () {
+                print("hello deer fakkker");
+              },
             ),
           ],
         ),
