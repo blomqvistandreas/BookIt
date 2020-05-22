@@ -3,9 +3,9 @@ import 'package:bookit_app/screens/createadvert.dart';
 import 'package:bookit_app/screens/notification.dart';
 import 'package:bookit_app/screens/profile.dart';
 import 'package:bookit_app/screens/search.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultDialog.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/styles/colors.dart';
-import 'package:bookit_app/widgets/DefaultDialog.dart';
 
 class Routes extends StatefulWidget {
   @override

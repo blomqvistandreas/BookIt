@@ -1,6 +1,6 @@
-import 'package:bookit_app/widgets/DefaultHeader.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultCard.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
 import 'package:flutter/material.dart';
-import 'package:bookit_app/widgets/DefaultCard.dart';
 import 'package:bookit_app/utils/dummyData.dart';
 
 class SearchScreen extends StatefulWidget {

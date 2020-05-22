@@ -1,8 +1,8 @@
-import 'package:bookit_app/widgets/DefaultAddImage.dart';
-import 'package:bookit_app/widgets/DefaultButton.dart';
-import 'package:bookit_app/widgets/DefaultDropdown.dart';
-import 'package:bookit_app/widgets/DefaultHeader.dart';
-import 'package:bookit_app/widgets/DefaultTextField.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultButton.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
+import 'package:bookit_app/widgets/Defaults/DefaultTextField.dart';
+import 'package:bookit_app/widgets/DeliveryDropdown.dart';
 import 'package:flutter/material.dart';
 
 class CreateAdvert extends StatelessWidget {
@@ -15,15 +15,13 @@ class CreateAdvert extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Kan vara del utav DefaultHeader, ta in icon / onpress
+            // TODO: Kan vara del utav DefaultHeader, ta in icon / onpress
             Padding(
               padding: EdgeInsets.only(top: 20, right: 20),
               child: Align(
                 alignment: Alignment.topRight,
                 child: FloatingActionButton(
                   onPressed: () {
-                    print("Title: ${controllerTitle.text}");
-                    print("Author: ${controllerAuthor.text}");
                     Navigator.of(context).pop();
                   },
                   child: Icon(Icons.close),
@@ -71,11 +69,14 @@ class CreateAdvert extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            DefaultDropdown(),
+            DeliveryDropdown(),
             SizedBox(height: 40),
             DefaultButton(
               title: "Fortsätt",
               onPressed: () {
+                print("Title: ${controllerTitle.text}");
+                print("Author: ${controllerAuthor.text}");
+                print("Picture: ");
                 Navigator.of(context).pop();
               },
             ),
