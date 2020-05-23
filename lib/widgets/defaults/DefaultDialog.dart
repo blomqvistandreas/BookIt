@@ -17,7 +17,7 @@ Future createDefaultDialog(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           color: Colors.white,
-          child: SafeArea(child: content),
+          child: content,
         ),
       );
     },

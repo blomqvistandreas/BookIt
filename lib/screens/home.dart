@@ -29,16 +29,16 @@ class _RoutesState extends State<Routes> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: PageStorage(
+    return Scaffold(
+      body: SafeArea(
+        child: PageStorage(
           child: currentScreen,
           bucket: bucket,
         ),
-        floatingActionButton: buildFloatingActionButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: buildBottomAppBar(),
       ),
+      floatingActionButton: buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: buildBottomAppBar(),
     );
   }
 
