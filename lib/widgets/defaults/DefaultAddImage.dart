@@ -5,6 +5,10 @@ import 'package:flutter/material.dart' hide Colors;
 import 'package:image_picker/image_picker.dart';
 
 class DefaultAddImage extends StatefulWidget {
+  final Function(String) imagePicked;
+
+  const DefaultAddImage({Key key, this.imagePicked}) : super(key: key);
+
   @override
   _DefaultAddImageState createState() => _DefaultAddImageState();
 }
@@ -14,6 +18,8 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
 
   Future getImage(ImageSource imageSource) async {
     var image = await ImagePicker.pickImage(source: imageSource);
+    widget.imagePicked(image.toString());
+
     setState(() {
       _image = image;
     });
@@ -28,7 +34,6 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // TODO: Default Button
               FlatButton(
                 color: Colors.primary,
                 child: Text('Galleri'),

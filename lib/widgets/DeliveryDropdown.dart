@@ -2,6 +2,10 @@ import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/styles/colors.dart';
 
 class DeliveryDropdown extends StatefulWidget {
+  final Function(String) deliveryPicked;
+
+  const DeliveryDropdown({Key key, this.deliveryPicked}) : super(key: key);
+
   @override
   _DeliveryDropdownState createState() => _DeliveryDropdownState();
 }
@@ -47,6 +51,7 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
               onChanged: (String newValue) {
                 setState(() {
                   _currentItemSelected = newValue;
+                  widget.deliveryPicked(newValue);
                 });
               },
               value: _currentItemSelected,

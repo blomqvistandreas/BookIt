@@ -1,3 +1,4 @@
+import 'package:bookit_app/models/new_advert.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultButton.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 class CreateAdvert extends StatelessWidget {
   final controllerTitle = TextEditingController();
   final controllerAuthor = TextEditingController();
+  String _passedImage;
+  NewAdvert _newAdvert = NewAdvert();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +34,16 @@ class CreateAdvert extends StatelessWidget {
             DefaultHeader(title: "Skapa annons"),
             DefaultTextField(
               label: "Title",
-              controller: controllerTitle,
+              textInput: (text) {
+                _newAdvert.title = text;
+              },
             ),
             SizedBox(height: 20),
             DefaultTextField(
               label: "Author",
-              controller: controllerAuthor,
+              textInput: (text) {
+                _newAdvert.author = text;
+              },
             ),
             SizedBox(height: 30),
             Padding(
@@ -54,7 +61,9 @@ class CreateAdvert extends StatelessWidget {
               padding: EdgeInsets.only(left: 30),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: DefaultAddImage(),
+                child: DefaultAddImage(imagePicked: (image) {
+                  _newAdvert.image = image;
+                }),
               ),
             ),
             SizedBox(height: 20),
@@ -69,14 +78,18 @@ class CreateAdvert extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            DeliveryDropdown(),
+            DeliveryDropdown(deliveryPicked: (delivery) {
+              _newAdvert.delivery = delivery;
+            }),
             SizedBox(height: 40),
             DefaultButton(
               title: "Fortsätt",
               onPressed: () {
-                print("Title: ${controllerTitle.text}");
-                print("Author: ${controllerAuthor.text}");
-                print("Picture: ");
+                //TODO: Check om man fyllt i allting, annars vibrerar ett fält.
+                print("Title: ${_newAdvert.title}");
+                print("Author: ${_newAdvert.author}");
+                print("Picture/URL: ${_newAdvert.image}");
+                print("Delivery: ${_newAdvert.delivery}");
                 Navigator.of(context).pop();
               },
             ),

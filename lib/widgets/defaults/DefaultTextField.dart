@@ -3,9 +3,9 @@ import 'package:flutter/material.dart' hide Colors;
 
 class DefaultTextField extends StatefulWidget {
   final String label;
-  final TextEditingController controller;
+  final Function(String) textInput;
 
-  const DefaultTextField({Key key, this.label, this.controller})
+  const DefaultTextField({Key key, this.label, this.textInput})
       : super(key: key);
 
   @override
@@ -22,8 +22,10 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       height: 60,
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
+        onChanged: (text) {
+          widget.textInput(text);
+        },
         textCapitalization: TextCapitalization.sentences,
-        controller: widget.controller,
         cursorColor: Colors.primary,
         cursorRadius: Radius.circular(20),
         cursorWidth: 17.0,
