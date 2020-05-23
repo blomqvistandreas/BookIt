@@ -1,6 +1,7 @@
 import 'package:bookit_app/styles/colors.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultCard.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
+import 'package:bookit_app/widgets/SearchBar.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/utils/dummyData.dart';
 
@@ -27,17 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         itemCount: dummyData.length + _returningWidgetsAmount,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return Container(
-              height: 60,
-              color: Colors.primary,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Search: "),
-                  Icon(Icons.search),
-                ],
-              ),
-            );
+            return SearchBar();
           } else if (index == 1)
             return DefaultHeader(title: "Populära");
           else if (index == 2)

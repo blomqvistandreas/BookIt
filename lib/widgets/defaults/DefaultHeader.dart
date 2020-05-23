@@ -8,8 +8,7 @@ class DefaultHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-      height: 100,
+      padding: EdgeInsets.fromLTRB(20, 40, 0, 20),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
