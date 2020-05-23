@@ -1,6 +1,7 @@
+import 'package:bookit_app/styles/colors.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultCard.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/utils/dummyData.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -20,16 +21,28 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _returningWidgetsAmount = 3;
+    var _returningWidgetsAmount = 4;
     return Scaffold(
       body: ListView.builder(
         itemCount: dummyData.length + _returningWidgetsAmount,
         itemBuilder: (context, index) {
-          if (index == 0)
+          if (index == 0) {
+            return Container(
+              height: 60,
+              color: Colors.primary,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Search: "),
+                  Icon(Icons.search),
+                ],
+              ),
+            );
+          } else if (index == 1)
             return DefaultHeader(title: "Populära");
-          else if (index == 1)
-            return _horizontalListView();
           else if (index == 2)
+            return _horizontalListView();
+          else if (index == 3)
             return DefaultHeader(title: "Andra böcker");
           else
             return DefaultCard(
