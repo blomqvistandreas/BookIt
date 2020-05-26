@@ -1,7 +1,15 @@
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  bool _didEnterText = false;
+  String _enteredText;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +32,17 @@ class SearchBar extends StatelessWidget {
             Flexible(
               child: TextField(
                 onChanged: (text) {
+                  if (text == "") {
+                    setState(() {
+                      _didEnterText = false;
+                    });
+                  } else {
+                    setState(() {
+                      _didEnterText = true;
+                      _enteredText = text;
+                    });
+                  }
+                  //TODO: SearchBar functionallity
                   //widget.textInput(text);
                   print("$text");
                 },
@@ -35,6 +54,17 @@ class SearchBar extends StatelessWidget {
                 ),
               ),
             ),
+            _didEnterText
+                ? IconButton(
+                    onPressed: () {
+                      print(_enteredText);
+                      setState(() {
+                        _enteredText = "";
+                      });
+                    },
+                    icon: Icon(Icons.cancel),
+                  )
+                : Container(),
             Icon(Icons.search),
           ],
         ),
