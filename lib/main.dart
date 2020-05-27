@@ -1,4 +1,6 @@
 import 'package:bookit_app/screens/home.dart';
+import 'package:bookit_app/services/firebase_test.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:flutter/services.dart';
 import 'package:bookit_app/styles/colors.dart';
@@ -39,7 +41,8 @@ class _MyAppState extends State<MyApp> {
           title: Text('BookIt', style: Theme.of(context).textTheme.headline),
           brightness: Theme.of(context).brightness,
         ),*/
-        body: Routes(),
+        body: //FirebaseTest(),
+            Routes(),
       ),
     );
   }

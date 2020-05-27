@@ -1,10 +1,10 @@
-class NewAdvert {
+class NewBookTemplate {
   String title;
   String author;
   String image;
   String delivery;
 
-  NewAdvert({
+  NewBookTemplate({
     this.title,
     this.author,
     this.image,

@@ -1,4 +1,12 @@
-var dummyData = [
+final dummySnapshot = [
+  {"name": "Filip", "votes": 15},
+  {"name": "Abraham", "votes": 14},
+  {"name": "Richard", "votes": 11},
+  {"name": "Ike", "votes": 10},
+  {"name": "Justin", "votes": 3},
+];
+
+final dummyData = [
   {
     "id": 1,
     "title": "End the Ocean",
