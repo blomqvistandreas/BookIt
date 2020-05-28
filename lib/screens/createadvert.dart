@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:bookit_app/styles/colors.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:uuid/uuid.dart';
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';

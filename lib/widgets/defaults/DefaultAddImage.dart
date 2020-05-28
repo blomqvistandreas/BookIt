@@ -19,13 +19,12 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
 
   Future getImage(ImageSource imageSource) async {
     var image = await ImagePicker.pickImage(source: imageSource);
-    widget.imagePicked(image);
 
     setState(() {
       _image = image;
     });
-
     await _cropImage(_image);
+    widget.imagePicked(_image);
   }
 
   Future<void> _cropImage(File image) async {

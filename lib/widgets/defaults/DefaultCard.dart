@@ -46,7 +46,7 @@ class DefaultCard extends StatelessWidget {
                       Radius.circular(10),
                     ),
                     image: new DecorationImage(
-                        image: new NetworkImage(data.image), fit: BoxFit.fill),
+                        image: new NetworkImage(data.image), fit: BoxFit.cover),
                   ),
                 ),
               ),
