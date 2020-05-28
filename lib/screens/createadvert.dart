@@ -128,6 +128,7 @@ class _CreateAdvertState extends State<CreateAdvert> {
   }
 
   createRecord() async {
+    // Lägg till tid också
     var now = new DateTime.now();
     var normalFormat = new DateFormat('yyyy-MM-dd');
     String formattedDate = normalFormat.format(now);

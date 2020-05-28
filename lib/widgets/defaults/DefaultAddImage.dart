@@ -31,16 +31,25 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
   Future<void> _cropImage(File image) async {
     File cropped = await ImageCropper.cropImage(
       sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio7x5,
+        CropAspectRatioPreset.ratio16x9
+      ],
       androidUiSettings: AndroidUiSettings(
-          toolbarTitle: 'Är nöjd med din bild?',
-          toolbarColor: Colors.primary,
-          cropFrameColor: Colors.primary,
-          cropGridColor: Colors.primary,
-          activeControlsWidgetColor: Colors.primary,
-          backgroundColor: Colors.white,
-          toolbarWidgetColor: Colors.primary),
+        toolbarTitle: 'Bli extra nöjd med din bild',
+        toolbarColor: Colors.primary,
+        cropFrameColor: Colors.primary,
+        cropGridColor: Colors.primary,
+        activeControlsWidgetColor: Colors.primary,
+        toolbarWidgetColor: Colors.white,
+        statusBarColor: Colors.primary,
+        initAspectRatio: CropAspectRatioPreset.original,
+      ),
       iosUiSettings: IOSUiSettings(
-        title: 'Cropper',
+        title: 'Bli extra nöjd med din bild',
       ),
     );
 
@@ -93,7 +102,7 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
               : FileImage(
                   _image,
                 ),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.all(
           Radius.circular(10),
