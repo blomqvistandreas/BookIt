@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewBook {
-  final String title, author, image, delivery;
+  String title, author, image, delivery;
   final DocumentReference reference;
 
   NewBook({
@@ -15,7 +15,7 @@ class NewBook {
   NewBook.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['title'] != null),
         assert(map['author'] != null),
-        assert(map['image_url'] != null),
+        assert(map['image'] != null),
         assert(map['delivery'] != null),
         title = map['title'],
         author = map['author'],
@@ -24,7 +24,4 @@ class NewBook {
 
   NewBook.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$title:$delivery>";
 }

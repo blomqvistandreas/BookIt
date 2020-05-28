@@ -2,10 +2,11 @@ import 'dart:io';
 import 'dart:async';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DefaultAddImage extends StatefulWidget {
-  final Function(String) imagePicked;
+  final Function(File) imagePicked;
 
   const DefaultAddImage({Key key, this.imagePicked}) : super(key: key);
 
@@ -18,10 +19,33 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
 
   Future getImage(ImageSource imageSource) async {
     var image = await ImagePicker.pickImage(source: imageSource);
-    widget.imagePicked(image.toString());
+    widget.imagePicked(image);
 
     setState(() {
       _image = image;
+    });
+
+    await _cropImage(_image);
+  }
+
+  Future<void> _cropImage(File image) async {
+    File cropped = await ImageCropper.cropImage(
+      sourcePath: image.path,
+      androidUiSettings: AndroidUiSettings(
+          toolbarTitle: 'Är nöjd med din bild?',
+          toolbarColor: Colors.primary,
+          cropFrameColor: Colors.primary,
+          cropGridColor: Colors.primary,
+          activeControlsWidgetColor: Colors.primary,
+          backgroundColor: Colors.white,
+          toolbarWidgetColor: Colors.primary),
+      iosUiSettings: IOSUiSettings(
+        title: 'Cropper',
+      ),
+    );
+
+    setState(() {
+      _image = cropped ?? image;
     });
   }
 

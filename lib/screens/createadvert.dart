@@ -1,19 +1,33 @@
+import 'dart:io';
+import 'package:bookit_app/styles/colors.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:uuid/uuid.dart';
 import 'package:bookit_app/models/new_book.dart';
-import 'package:bookit_app/models/new_book_template.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultButton.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultTextField.dart';
 import 'package:bookit_app/widgets/DeliveryDropdown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart' hide Colors;
 import 'package:intl/intl.dart';
 
-class CreateAdvert extends StatelessWidget {
+class CreateAdvert extends StatefulWidget {
+  @override
+  _CreateAdvertState createState() => _CreateAdvertState();
+}
+
+class _CreateAdvertState extends State<CreateAdvert> {
   final controllerTitle = TextEditingController();
+
   final controllerAuthor = TextEditingController();
-  NewBookTemplate _newBookTemplate = NewBookTemplate();
+
+  NewBook _newBook = NewBook();
+
   final databaseReference = Firestore.instance;
+
+  File _image;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,6 @@ class CreateAdvert extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // TODO: Kan vara del utav DefaultHeader, ta in icon / onpress
               Padding(
                 padding: EdgeInsets.only(top: 20, right: 20),
                 child: Align(
@@ -39,14 +52,14 @@ class CreateAdvert extends StatelessWidget {
               DefaultTextField(
                 label: "Title",
                 textInput: (text) {
-                  _newBookTemplate.title = text;
+                  _newBook.title = text;
                 },
               ),
               SizedBox(height: 20),
               DefaultTextField(
                 label: "Author",
                 textInput: (text) {
-                  _newBookTemplate.author = text;
+                  _newBook.author = text;
                 },
               ),
               SizedBox(height: 30),
@@ -66,7 +79,7 @@ class CreateAdvert extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: DefaultAddImage(imagePicked: (image) {
-                    _newBookTemplate.image = image;
+                    _image = image;
                   }),
                 ),
               ),
@@ -83,7 +96,7 @@ class CreateAdvert extends StatelessWidget {
               ),
               SizedBox(height: 20),
               DeliveryDropdown(deliveryPicked: (delivery) {
-                _newBookTemplate.delivery = delivery;
+                _newBook.delivery = delivery;
               }),
               SizedBox(height: 40),
               DefaultButton(
@@ -101,22 +114,30 @@ class CreateAdvert extends StatelessWidget {
     );
   }
 
-  createRecord() async {
-    /*await databaseReference
-        .collection("books")
-        .document("potatis")
-        .setData({'title': 'potatis', 'description': 'potatis beskrivning'});*/
+  Future<String> _uploadImage(File image) async {
+    var uuid = new Uuid();
+    StorageReference reference =
+        FirebaseStorage.instance.ref().child('images/${uuid.v1()}');
+    StorageUploadTask uploadTask = reference.putFile(image);
 
+    StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
+
+    String location = (await downloadUrl.ref.getDownloadURL());
+    print("URL: $location");
+    return location;
+  }
+
+  createRecord() async {
     var now = new DateTime.now();
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formattedDate = formatter.format(now);
+    var normalFormat = new DateFormat('yyyy-MM-dd');
+    String formattedDate = normalFormat.format(now);
 
     DocumentReference ref = await databaseReference.collection("books").add({
       'date': formattedDate,
-      'title': _newBookTemplate.title,
-      'author': _newBookTemplate.author,
-      'image': _newBookTemplate.image,
-      'delivery': _newBookTemplate.delivery,
+      'title': _newBook.title,
+      'author': _newBook.author,
+      'image': await _uploadImage(_image),
+      'delivery': _newBook.delivery,
     });
     print(ref.documentID);
   }

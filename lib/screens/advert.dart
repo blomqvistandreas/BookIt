@@ -19,9 +19,9 @@ class _AdvertScreenState extends State<AdvertScreen> {
         itemBuilder: (context, index) {
           if (index == 0)
             return DefaultHeader(title: "Mina annonser");
-          else if (index == 1)
+          /*else if (index == 1)
             return DefaultCard(
-                index: index, startIndex: index - 1, data: dummyData);
+                index: index, startIndex: index - 1, data: dummyData);*/
           else
             return DefaultHeader(title: 'Avslutade annonser');
         },

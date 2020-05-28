@@ -1,10 +1,11 @@
 import 'dart:ui';
+import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
 class DefaultCard extends StatelessWidget {
   final int index, startIndex;
-  final List data;
+  final NewBook data;
   final bool hasEnded;
   final String endedText;
 
@@ -45,15 +46,35 @@ class DefaultCard extends StatelessWidget {
                       Radius.circular(10),
                     ),
                     image: new DecorationImage(
-                        image: new NetworkImage(
-                          data[startIndex]['image'],
-                        ),
-                        fit: BoxFit.fill),
+                        image: new NetworkImage(data.image), fit: BoxFit.fill),
                   ),
                 ),
               ),
               SizedBox(width: 20),
-              column(startIndex, data),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.title,
+                      //data[startIndex]['title'],
+                      style: TextStyle(fontSize: 19),
+                      overflow: TextOverflow.fade,
+                      maxLines: 10,
+                    ),
+                    Text(
+                      //"By " + data[startIndex]['author'],
+                      data.author,
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -107,33 +128,4 @@ class DefaultCard extends StatelessWidget {
       ],
     );
   }
-}
-
-Expanded column(startIndex, data) {
-  return Expanded(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          data[startIndex]['title'],
-          style: TextStyle(fontSize: 19),
-          overflow: TextOverflow.fade,
-          maxLines: 10,
-        ),
-        Text(
-          "By " + data[startIndex]['author'],
-          style: TextStyle(fontSize: 10),
-        ),
-        SizedBox(height: 20),
-        Text(
-          "• " +
-              data[startIndex]['price'] +
-              " kr\n" +
-              "• Göteborg \n" +
-              "• Byta",
-        ),
-      ],
-    ),
-  );
 }

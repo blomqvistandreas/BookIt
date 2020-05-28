@@ -1,9 +1,15 @@
+import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultCard.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
 import 'package:bookit_app/widgets/SearchBar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/utils/dummyData.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:image_cropper/image_cropper.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -11,20 +17,15 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<String> _dummyTrendingCovers = <String>[
-    'https://i.harperapps.com/covers/9780062413666/x300.jpg',
-    'https://i.harperapps.com/covers/9780061560903/x300.jpg',
-    'https://i.harperapps.com/covers/9780061173721/x300.jpg',
-    'https://i.harperapps.com/covers/9781557049971/x300.jpg',
-    'https://i.harperapps.com/covers/9780062206954/x300.jpg',
-    'https://i.harperapps.com/covers/9780062269003/x300.jpg'
-  ];
+  File _image;
+  String _uploadedFileURL;
 
   @override
   Widget build(BuildContext context) {
     var _returningWidgetsAmount = 4;
     return Scaffold(
-      body: ListView.builder(
+      body: _buildBody(context),
+      /*ListView.builder(
         itemCount: dummyData.length + _returningWidgetsAmount,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -42,9 +43,61 @@ class _SearchScreenState extends State<SearchScreen> {
               data: dummyData,
             );
         },
-      ),
+      ),*/
     );
   }
+
+  Widget _buildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('books').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        print(snapshot.data.documents);
+        return _buildList(context, snapshot.data.documents);
+      },
+    );
+  }
+
+  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+    return ListView(
+      padding: const EdgeInsets.only(top: 20.0),
+      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+    final newBook = NewBook.fromSnapshot(data);
+
+    return DefaultCard(
+      key: ValueKey(newBook.title),
+      data: newBook,
+    );
+
+    /*Padding(
+      key: ValueKey(newBook.title),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: ListTile(
+          title: Text(newBook.title),
+          trailing: Text(newBook.delivery),
+          onTap: () => newBook.reference.updateData({'delivery': "Sell"}),
+        ),
+      ),
+    );*/
+  }
+
+  final List<String> _dummyTrendingCovers = <String>[
+    'https://i.harperapps.com/covers/9780062413666/x300.jpg',
+    'https://i.harperapps.com/covers/9780061560903/x300.jpg',
+    'https://i.harperapps.com/covers/9780061173721/x300.jpg',
+    'https://i.harperapps.com/covers/9781557049971/x300.jpg',
+    'https://i.harperapps.com/covers/9780062206954/x300.jpg',
+    'https://i.harperapps.com/covers/9780062269003/x300.jpg'
+  ];
 
   Widget _horizontalListView() {
     return Container(
