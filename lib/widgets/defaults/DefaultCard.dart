@@ -4,78 +4,83 @@ import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
 class DefaultCard extends StatelessWidget {
-  final int index, startIndex;
+  final int index;
   final NewBook data;
   final bool hasEnded;
   final String endedText;
+  final Function onTap;
 
   const DefaultCard({
     Key key,
     this.index,
-    this.startIndex,
     this.data,
     this.hasEnded = false,
     this.endedText = "SOLD", // SOLD or EXPIRED
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 6, left: 20, right: 20),
-          height: 160,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.primary, Colors.secondary]),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
+        GestureDetector(
+          onTap: () {
+            onTap();
+          },
+          child: Container(
+            margin: EdgeInsets.only(bottom: 6, left: 20, right: 20),
+            height: 160,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Colors.primary, Colors.secondary]),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
             ),
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Container(
-                  height: 140,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Container(
+                    height: 140,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      image: new DecorationImage(
+                          image: new NetworkImage(data.image),
+                          fit: BoxFit.cover),
                     ),
-                    image: new DecorationImage(
-                        image: new NetworkImage(data.image), fit: BoxFit.cover),
                   ),
                 ),
-              ),
-              SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data.title,
-                      //data[startIndex]['title'],
-                      style: TextStyle(fontSize: 19),
-                      overflow: TextOverflow.fade,
-                      maxLines: 10,
-                    ),
-                    Text(
-                      //"By " + data[startIndex]['author'],
-                      data.author,
-                      style: TextStyle(fontSize: 10),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
-                    ),
-                  ],
+                SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.title,
+                        style: TextStyle(fontSize: 19),
+                        overflow: TextOverflow.fade,
+                        maxLines: 10,
+                      ),
+                      Text(
+                        "Utav " + data.author,
+                        style: TextStyle(fontSize: 10),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         hasEnded

@@ -1,3 +1,13 @@
+//TEST: Used for testing only.
+final List<String> dummyTrendingCovers = <String>[
+  'https://i.harperapps.com/covers/9780062413666/x300.jpg',
+  'https://i.harperapps.com/covers/9780061560903/x300.jpg',
+  'https://i.harperapps.com/covers/9780061173721/x300.jpg',
+  'https://i.harperapps.com/covers/9781557049971/x300.jpg',
+  'https://i.harperapps.com/covers/9780062206954/x300.jpg',
+  'https://i.harperapps.com/covers/9780062269003/x300.jpg'
+];
+
 final dummySnapshot = [
   {"name": "Filip", "votes": 15},
   {"name": "Abraham", "votes": 14},

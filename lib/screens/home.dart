@@ -1,9 +1,9 @@
 import 'package:bookit_app/screens/advert.dart';
-import 'package:bookit_app/screens/createadvert.dart';
+import 'package:bookit_app/screens/create_advert.dart';
 import 'package:bookit_app/screens/notification.dart';
 import 'package:bookit_app/screens/profile.dart';
 import 'package:bookit_app/screens/search.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultDialog.dart';
+import 'package:bookit_app/widgets/defaults/DefaultModal.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/styles/colors.dart';
 
@@ -46,7 +46,10 @@ class _RoutesState extends State<Routes> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-        createDefaultDialog(context, CreateAdvert());
+        createDefaultModal(
+          context,
+          CreateAdvert(),
+        );
       },
     );
   }
