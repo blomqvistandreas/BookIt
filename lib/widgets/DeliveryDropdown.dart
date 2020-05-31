@@ -46,7 +46,7 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                     child: Text(
                       value,
                       style: TextStyle(
-                        color: _haveSelectedItem ? Colors.primary : Colors.grey,
+                        color: _haveSelectedItem ? Colors.black : Colors.grey,
                       ),
                       overflow: TextOverflow.fade,
                     ),
@@ -58,10 +58,13 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                   _currentItemSelected = newValue;
                   if (newValue == _listItems[1]) {
                     widget.deliveryPicked("DELIVERY");
+                    _haveSelectedItem = true;
                   } else if (newValue == _listItems[2]) {
                     widget.deliveryPicked("MEET");
+                    _haveSelectedItem = true;
                   } else {
                     widget.deliveryPicked("NULL");
+                    _haveSelectedItem = false;
                   }
                 });
               },

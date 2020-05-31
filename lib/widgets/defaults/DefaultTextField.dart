@@ -13,7 +13,6 @@ class DefaultTextField extends StatefulWidget {
 }
 
 class _DefaultTextFieldState extends State<DefaultTextField> {
-  // TODO: Have typed something
   var _didInputText = false;
 
   @override
@@ -22,8 +21,16 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
       height: 60,
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
-        onChanged: (text) {
-          widget.textInput(text);
+        onSubmitted: (text) {
+          setState(() {
+            if (text != null && text != "") {
+              _didInputText = true;
+              widget.textInput(text);
+            } else {
+              _didInputText = false;
+              //Alert and shake
+            }
+          });
         },
         textCapitalization: TextCapitalization.sentences,
         cursorColor: Colors.primary,
@@ -31,7 +38,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
         cursorWidth: 17.0,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.primary, width: 2.0),
+            borderSide: BorderSide(color: Colors.grey, width: 2.0),
             borderRadius: BorderRadius.circular(20),
           ),
           enabledBorder: OutlineInputBorder(
