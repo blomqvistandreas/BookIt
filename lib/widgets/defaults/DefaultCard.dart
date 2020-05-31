@@ -73,8 +73,10 @@ class DefaultCard extends StatelessWidget {
                         style: TextStyle(fontSize: 10),
                       ),
                       SizedBox(height: 20),
-                      Text(
-                        "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
+                      Expanded(
+                        child: Text(
+                          "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
+                        ),
                       ),
                     ],
                   ),

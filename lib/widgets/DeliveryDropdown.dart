@@ -11,8 +11,12 @@ class DeliveryDropdown extends StatefulWidget {
 }
 
 class _DeliveryDropdownState extends State<DeliveryDropdown> {
-  var _listItems = ["Jag tänker posta boken", "Jag föredrar att byta boken"];
-  var _currentItemSelected = "Jag tänker posta boken";
+  var _listItems = [
+    "Välj leverans alternativ...",
+    "Jag föredrar att posta boken",
+    "Jag vill träffas för att byta boken"
+  ];
+  var _currentItemSelected = "Välj leverans alternativ...";
   var _haveSelectedItem = false;
 
   @override
@@ -44,6 +48,7 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
                       style: TextStyle(
                         color: _haveSelectedItem ? Colors.primary : Colors.grey,
                       ),
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 );
@@ -51,7 +56,13 @@ class _DeliveryDropdownState extends State<DeliveryDropdown> {
               onChanged: (String newValue) {
                 setState(() {
                   _currentItemSelected = newValue;
-                  widget.deliveryPicked(newValue);
+                  if (newValue == _listItems[1]) {
+                    widget.deliveryPicked("DELIVERY");
+                  } else if (newValue == _listItems[2]) {
+                    widget.deliveryPicked("MEET");
+                  } else {
+                    widget.deliveryPicked("NULL");
+                  }
                 });
               },
               value: _currentItemSelected,

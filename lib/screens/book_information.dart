@@ -17,13 +17,20 @@ class BookInformation extends StatelessWidget {
         DefaultSubHeader(title: "By ${data.author}", fontSize: 15),
         SizedBox(height: 40),
         Image.network(data.image),
-        Text(data.delivery),
+        Row(
+          children: [
+            Icon(Icons.check),
+            SizedBox(width: 10),
+            Text(data
+                .delivery), // Meet up in Göteborg / Fraktas, leverans inom 7 dagar
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DefaultButton(title: "Request trade"),
             SizedBox(width: 5),
-            DefaultButton(title: "Buy now"),
+            DefaultButton(title: "Lägg till i varukorgen"),
           ],
         ),
       ],

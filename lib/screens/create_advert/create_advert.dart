@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'package:bookit_app/screens/create_advert/delivery_form.dart';
+import 'package:bookit_app/screens/create_advert/meet_form.dart';
+import 'package:bookit_app/styles/colors.dart';
+import 'package:bookit_app/utils/snackbar.dart';
 import 'package:uuid/uuid.dart';
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
@@ -18,70 +22,38 @@ class CreateAdvert extends StatefulWidget {
 
 class _CreateAdvertState extends State<CreateAdvert> {
   final controllerTitle = TextEditingController();
-
   final controllerAuthor = TextEditingController();
-
   NewBook _newBook = NewBook();
-
   final databaseReference = Firestore.instance;
-
   File _image;
+
+  var _displayMeetUpForm = false;
+  var _displayDeliveryForm = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         DefaultHeader(title: "Skapa annons"),
-        DefaultTextField(
-          label: "Title",
-          textInput: (text) {
-            _newBook.title = text;
-          },
-        ),
         SizedBox(height: 20),
-        DefaultTextField(
-          label: "Author",
-          textInput: (text) {
-            _newBook.author = text;
-          },
-        ),
+        buildTitleTextField(),
+        SizedBox(height: 20),
+        buildAuthorTextField(),
         SizedBox(height: 30),
-        Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Lägg till en bild",
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-        ),
+        buildSubHeader(text: "Lägg till en bild"),
         SizedBox(height: 20),
-        Padding(
-          padding: EdgeInsets.only(left: 30),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: DefaultAddImage(imagePicked: (image) {
-              _image = image;
-            }),
-          ),
-        ),
+        buildAddImage(),
         SizedBox(height: 20),
-        Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Leverans",
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-        ),
+        buildSubHeader(text: "Leverans"),
         SizedBox(height: 20),
-        DeliveryDropdown(deliveryPicked: (delivery) {
-          _newBook.delivery = delivery;
-        }),
+        buildDeliveryDropdown(),
         SizedBox(height: 40),
+        _displayDeliveryForm ? DeliveryForm() : Container(),
+        _displayMeetUpForm ? buildMeetForm() : Container(),
+        SizedBox(height: 40),
+        //TODO: Text("Vad tyckte du om boken?"),
+        //TODO: Text("Vilken kategori kan du tänka dig byta mot? Select bubbles"),
+        // Eller jag söker bok inom: "Fiske"
         DefaultButton(
           title: "Fortsätt",
           horizontalPadding: 20.0,
@@ -92,6 +64,69 @@ class _CreateAdvertState extends State<CreateAdvert> {
           },
         ),
       ],
+    );
+  }
+
+  Padding buildAddImage() {
+    return Padding(
+      padding: EdgeInsets.only(left: 30),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: DefaultAddImage(imagePicked: (image) {
+          _image = image;
+        }),
+      ),
+    );
+  }
+
+  DeliveryDropdown buildDeliveryDropdown() {
+    return DeliveryDropdown(deliveryPicked: (delivery) {
+      setState(() {
+        if (delivery == "DELIVERY") {
+          _displayMeetUpForm = false;
+          _displayDeliveryForm = true;
+          _newBook.delivery = delivery;
+        } else if (delivery == "MEET") {
+          _displayDeliveryForm = false;
+          _displayMeetUpForm = true;
+          _newBook.delivery = delivery;
+        } else {
+          _displayDeliveryForm = false;
+          _displayMeetUpForm = false;
+          print("Error: 8301");
+        }
+      });
+    });
+  }
+
+  Padding buildSubHeader({String text}) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+    );
+  }
+
+  DefaultTextField buildAuthorTextField() {
+    return DefaultTextField(
+      label: "Author",
+      textInput: (text) {
+        _newBook.author = text;
+      },
+    );
+  }
+
+  DefaultTextField buildTitleTextField() {
+    return DefaultTextField(
+      label: "Title",
+      textInput: (text) {
+        _newBook.title = text;
+      },
     );
   }
 
