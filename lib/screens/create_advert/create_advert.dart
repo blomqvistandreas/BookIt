@@ -44,7 +44,7 @@ class _CreateAdvertState extends State<CreateAdvert> {
         MultilineTextField(
           label: "Beskrivning",
           textInput: (text) {
-            _newBook.title = text;
+            _newBook.description = text;
           },
         ),
         SizedBox(height: 20),
@@ -57,18 +57,19 @@ class _CreateAdvertState extends State<CreateAdvert> {
         buildDeliveryDropdown(),
         SizedBox(height: 40),
         _displayDeliveryForm ? DeliveryForm() : Container(),
-        _displayMeetUpForm ? buildMeetForm() : Container(),
+        _displayMeetUpForm
+            ? MeetForm(
+                textInput: (text) {
+                  _newBook.meetCity = text;
+                },
+              )
+            : Container(),
         SizedBox(height: 40),
-        //TODO: Text("Vad tyckte du om boken?"),
-        //TODO: Text("Vilken kategori kan du tänka dig byta mot? Select bubbles"),
-        // Eller jag söker bok inom: "Fiske"
         DefaultButton(
           title: "Fortsätt",
           horizontalPadding: 20.0,
           onPressed: () {
-            //TODO: If successful, Check om man fyllt i allting, annars vibrerar ett fält.
-            createRecord();
-            Navigator.of(context).pop();
+            submittedAllFields();
           },
         ),
       ],
@@ -99,6 +100,7 @@ class _CreateAdvertState extends State<CreateAdvert> {
           _displayMeetUpForm = true;
           _newBook.delivery = delivery;
         } else {
+          _newBook.delivery = delivery;
           _displayDeliveryForm = false;
           _displayMeetUpForm = false;
           print("Error: 8301");
@@ -151,6 +153,27 @@ class _CreateAdvertState extends State<CreateAdvert> {
     return location;
   }
 
+  submittedAllFields() {
+    if (_newBook.title != null &&
+        _newBook.author != null &&
+        _newBook.description != null &&
+        _image != null) {
+      if (_newBook.delivery == "DELIVERY") {
+        if (_newBook.userPayDeliveryCosts != null &&
+            _newBook.shippingAgreement != null) {
+          createSnackBar(context, "Yes, delivery");
+          createAdvert();
+        }
+      } else if (_newBook.delivery == "MEET") {
+        //createSnackBar(context, "Yes, meet");
+      } else {
+        createSnackBar(context, "Missing information");
+      }
+    } else {
+      createSnackBar(context, "Missing information");
+    }
+  }
+
   createRecord() async {
     var now = new DateTime.now();
     var normalFormat = new DateFormat('yyyy-MM-dd');
@@ -162,7 +185,14 @@ class _CreateAdvertState extends State<CreateAdvert> {
       'author': _newBook.author,
       'image': await _uploadImage(_image),
       'delivery': _newBook.delivery,
+      'description': _newBook.description,
     });
     print(ref.documentID);
+  }
+
+  createAdvert() {
+    _newBook.status = "Online";
+    createRecord();
+    Navigator.of(context).pop();
   }
 }

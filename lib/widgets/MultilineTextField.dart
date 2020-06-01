@@ -25,11 +25,11 @@ class _MultilineTextFieldState extends State<MultilineTextField> {
           setState(() {
             if (text != null && text != "") {
               _didInputText = true;
-              widget.textInput(text);
             } else {
               _didInputText = false;
               //Alert and shake
             }
+            widget.textInput(text);
           });
         },
         maxLength: 150,
