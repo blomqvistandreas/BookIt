@@ -4,7 +4,9 @@ import 'package:flutter/material.dart' hide Colors;
 
 class MeetForm extends StatefulWidget {
   final Function(String) textInput;
-  const MeetForm({Key key, this.textInput}) : super(key: key);
+  final Function(bool) meetUpAgreement;
+  const MeetForm({Key key, this.textInput, this.meetUpAgreement})
+      : super(key: key);
 
   @override
   _MeetFormState createState() => _MeetFormState();
@@ -63,6 +65,7 @@ class _MeetFormState extends State<MeetForm> {
                     value: _meetUpAgreement,
                     onChanged: (bool value) {
                       setState(() {
+                        widget.meetUpAgreement(value);
                         _meetUpAgreement = value;
                       });
                     },
@@ -82,7 +85,7 @@ class _MeetFormState extends State<MeetForm> {
   }
 
   bool formComplete() {
-    if (_didInputText.length > 1 && _meetUpAgreement) {
+    if (_didInputText != null && _meetUpAgreement) {
       return true;
     }
     return false;

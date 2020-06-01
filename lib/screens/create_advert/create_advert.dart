@@ -56,11 +56,26 @@ class _CreateAdvertState extends State<CreateAdvert> {
         SizedBox(height: 20),
         buildDeliveryDropdown(),
         SizedBox(height: 40),
-        _displayDeliveryForm ? DeliveryForm() : Container(),
+        _displayDeliveryForm
+            ? DeliveryForm(
+                shippingAgreement: (value) {
+                  _newBook.shippingAgreement = value;
+                },
+                shippingCostsReciever: (value) {
+                  _newBook.shippingCostsReciever = value;
+                },
+                shippingCostsCreater: (value) {
+                  _newBook.shippingCostsCreator = value;
+                },
+              )
+            : Container(),
         _displayMeetUpForm
             ? MeetForm(
                 textInput: (text) {
                   _newBook.meetCity = text;
+                },
+                meetUpAgreement: (value) {
+                  _newBook.meetUpAgreement = value;
                 },
               )
             : Container(),
@@ -159,18 +174,21 @@ class _CreateAdvertState extends State<CreateAdvert> {
         _newBook.description != null &&
         _image != null) {
       if (_newBook.delivery == "DELIVERY") {
-        if (_newBook.userPayDeliveryCosts != null &&
-            _newBook.shippingAgreement != null) {
-          createSnackBar(context, "Yes, delivery");
+        if ((_newBook.shippingCostsCreator || _newBook.shippingCostsReciever) &&
+            _newBook.shippingAgreement) {
           createAdvert();
+        } else {
+          createSnackBar(context, "Missing information");
         }
       } else if (_newBook.delivery == "MEET") {
-        //createSnackBar(context, "Yes, meet");
+        if (_newBook.meetCity != null && _newBook.meetUpAgreement) {
+          createAdvert();
+        } else {
+          createSnackBar(context, "Missing information");
+        }
       } else {
         createSnackBar(context, "Missing information");
       }
-    } else {
-      createSnackBar(context, "Missing information");
     }
   }
 
@@ -186,6 +204,12 @@ class _CreateAdvertState extends State<CreateAdvert> {
       'image': await _uploadImage(_image),
       'delivery': _newBook.delivery,
       'description': _newBook.description,
+      'shipping_agreement': _newBook.shippingAgreement,
+      'shipping_cost_creator': _newBook.shippingCostsCreator,
+      'shipping_cost_reciever': _newBook.shippingCostsReciever,
+      'meet_city': _newBook.meetCity,
+      'meet_up_agreement': _newBook.meetUpAgreement,
+      'status': _newBook.status,
     });
     print(ref.documentID);
   }

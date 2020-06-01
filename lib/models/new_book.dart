@@ -3,7 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NewBook {
   String title, author, image, delivery, description, status, meetCity;
   final DocumentReference reference;
-  bool shippingAgreement, userPayDeliveryCosts;
+  bool shippingAgreement,
+      userPayDeliveryCosts,
+      meetUpAgreement,
+      shippingCostsReciever,
+      shippingCostsCreator;
 
   NewBook(
       {this.reference,
@@ -13,8 +17,10 @@ class NewBook {
       this.delivery,
       this.description,
       this.shippingAgreement,
-      this.userPayDeliveryCosts,
+      this.shippingCostsCreator,
+      this.shippingCostsReciever,
       this.meetCity,
+      this.meetUpAgreement,
       this.status});
 
   NewBook.fromMap(Map<String, dynamic> map, {this.reference})
@@ -31,6 +37,9 @@ class NewBook {
         shippingAgreement = map['shipping_agreement'],
         userPayDeliveryCosts = map['user_pay_delivery_costs'],
         meetCity = map['meet_city'],
+        meetUpAgreement = map['meet_up_agreement'],
+        shippingCostsCreator = map['shipping_cost_creator'],
+        shippingCostsReciever = map['shipping_cost_reciever'],
         status = map['status'];
 
   NewBook.fromSnapshot(DocumentSnapshot snapshot)

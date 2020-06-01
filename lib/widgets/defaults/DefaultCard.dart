@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bookit_app/functions/displayDeliveryText.dart';
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
@@ -42,7 +43,9 @@ class DefaultCard extends StatelessWidget {
             child: Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(
+                    left: 10,
+                  ),
                   child: Container(
                     height: 140,
                     width: 100,
@@ -66,23 +69,30 @@ class DefaultCard extends StatelessWidget {
                       children: [
                         Text(
                           data.title,
-                          style: TextStyle(fontSize: 19),
+                          style: TextStyle(fontSize: 18),
                           overflow: TextOverflow.fade,
-                          maxLines: 10,
+                          maxLines: 2,
                         ),
                         Text(
-                          "Utav " + data.author,
+                          "Av " + data.author,
                           style: TextStyle(fontSize: 10),
                         ),
                         SizedBox(height: 20),
                         Expanded(
-                          child: Text(
-                            "• " +
-                                "600kr" +
-                                " kr\n" +
-                                "• Göteborg \n" +
-                                "• Byta",
-                          ),
+                          child: displayDeliveryText(data),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Läs mer',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.keyboard_arrow_right),
+                              color: Colors.grey,
+                            ),
+                          ],
                         ),
                       ],
                     ),

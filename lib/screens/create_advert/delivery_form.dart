@@ -2,7 +2,16 @@ import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
 class DeliveryForm extends StatefulWidget {
-  DeliveryForm({Key key}) : super(key: key);
+  final Function(bool) shippingCostsCreater;
+  final Function(bool) shippingCostsReciever;
+  final Function(bool) shippingAgreement;
+
+  DeliveryForm(
+      {Key key,
+      this.shippingCostsCreater,
+      this.shippingCostsReciever,
+      this.shippingAgreement})
+      : super(key: key);
 
   _DeliveryFormState createState() => _DeliveryFormState();
 }
@@ -45,7 +54,9 @@ class _DeliveryFormState extends State<DeliveryForm> {
                   onChanged: (bool value) {
                     setState(() {
                       _shippingCostsCreater = value;
+                      widget.shippingCostsCreater(value);
                       _shippingCostsReciever = false;
+                      widget.shippingCostsReciever(false);
                     });
                   },
                 ),
@@ -65,7 +76,9 @@ class _DeliveryFormState extends State<DeliveryForm> {
                   onChanged: (bool value) {
                     setState(() {
                       _shippingCostsReciever = value;
+                      widget.shippingCostsReciever(value);
                       _shippingCostsCreater = false;
+                      widget.shippingCostsCreater(false);
                     });
                   },
                 ),
@@ -89,6 +102,7 @@ class _DeliveryFormState extends State<DeliveryForm> {
                   value: _shippingAgreement,
                   onChanged: (bool value) {
                     setState(() {
+                      widget.shippingAgreement(value);
                       _shippingAgreement = value;
                     });
                   },
