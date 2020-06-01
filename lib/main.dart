@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
       textTheme: GoogleFonts.montserratTextTheme(textTheme),
       primaryColor: Colors.primary,
       hintColor: Colors.grey,
+      textSelectionHandleColor: Colors.secondary,
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: Colors.primary),
     );

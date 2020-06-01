@@ -1,24 +1,24 @@
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
 
-class DefaultTextField extends StatefulWidget {
+class MultilineTextField extends StatefulWidget {
   final String label;
   final Function(String) textInput;
 
-  const DefaultTextField({Key key, this.label, this.textInput})
+  const MultilineTextField({Key key, this.label, this.textInput})
       : super(key: key);
 
   @override
-  _DefaultTextFieldState createState() => _DefaultTextFieldState();
+  _MultilineTextFieldState createState() => _MultilineTextFieldState();
 }
 
-class _DefaultTextFieldState extends State<DefaultTextField> {
+class _MultilineTextFieldState extends State<MultilineTextField> {
   var _didInputText = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 130,
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
         onChanged: (text) {
@@ -32,11 +32,16 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
             }
           });
         },
+        maxLength: 150,
+        maxLengthEnforced: true,
+        maxLines: 30,
+        keyboardType: TextInputType.text,
         textCapitalization: TextCapitalization.sentences,
         cursorColor: Colors.primary,
         cursorRadius: Radius.circular(20),
         cursorWidth: 17.0,
         decoration: InputDecoration(
+          alignLabelWithHint: true,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey, width: 2.0),
             borderRadius: BorderRadius.circular(20),

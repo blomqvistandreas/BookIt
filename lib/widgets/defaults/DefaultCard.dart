@@ -58,27 +58,34 @@ class DefaultCard extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data.title,
-                        style: TextStyle(fontSize: 19),
-                        overflow: TextOverflow.fade,
-                        maxLines: 10,
-                      ),
-                      Text(
-                        "Utav " + data.author,
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      SizedBox(height: 20),
-                      Expanded(
-                        child: Text(
-                          "• " + "600kr" + " kr\n" + "• Göteborg \n" + "• Byta",
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.title,
+                          style: TextStyle(fontSize: 19),
+                          overflow: TextOverflow.fade,
+                          maxLines: 10,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Utav " + data.author,
+                          style: TextStyle(fontSize: 10),
+                        ),
+                        SizedBox(height: 20),
+                        Expanded(
+                          child: Text(
+                            "• " +
+                                "600kr" +
+                                " kr\n" +
+                                "• Göteborg \n" +
+                                "• Byta",
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

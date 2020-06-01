@@ -3,6 +3,7 @@ import 'package:bookit_app/screens/create_advert/delivery_form.dart';
 import 'package:bookit_app/screens/create_advert/meet_form.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:bookit_app/utils/snackbar.dart';
+import 'package:bookit_app/widgets/MultilineTextField.dart';
 import 'package:uuid/uuid.dart';
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
@@ -37,9 +38,16 @@ class _CreateAdvertState extends State<CreateAdvert> {
         DefaultHeader(title: "Skapa annons"),
         SizedBox(height: 20),
         buildTitleTextField(),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         buildAuthorTextField(),
-        SizedBox(height: 30),
+        SizedBox(height: 10),
+        MultilineTextField(
+          label: "Beskrivning",
+          textInput: (text) {
+            _newBook.title = text;
+          },
+        ),
+        SizedBox(height: 20),
         buildSubHeader(text: "Lägg till en bild"),
         SizedBox(height: 20),
         buildAddImage(),

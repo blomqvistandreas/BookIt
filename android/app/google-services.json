@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "480570430810",
-    "firebase_url": "https://bookit-c0f74.firebaseio.com",
-    "project_id": "bookit-c0f74",
-    "storage_bucket": "bookit-c0f74.appspot.com"
+    "project_number": "634260674978",
+    "firebase_url": "https://newproject-93e54.firebaseio.com",
+    "project_id": "newproject-93e54",
+    "storage_bucket": "newproject-93e54.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:480570430810:android:35a12e6b40bf30bc5d8f63",
+        "mobilesdk_app_id": "1:634260674978:android:cfa8d40c4ebcb24725fafb",
         "android_client_info": {
           "package_name": "com.example.bookit_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "480570430810-fep5438kf68ve8t5nishh2br5673lcpg.apps.googleusercontent.com",
+          "client_id": "634260674978-3slsqhs4rpm3o6qm3t01qavdpevmusk2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-SBshoX7sdT2RHHgP66Z09sQACuazF3Y"
+          "current_key": "AIzaSyAwVMZ2N0bIVGk2wuZZJp-0fppQTf8Ngqc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "480570430810-fep5438kf68ve8t5nishh2br5673lcpg.apps.googleusercontent.com",
+              "client_id": "634260674978-3slsqhs4rpm3o6qm3t01qavdpevmusk2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
