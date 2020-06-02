@@ -5,9 +5,6 @@ import 'package:bookit_app/widgets/Defaults/DefaultButton.dart';
 import 'package:bookit_app/widgets/defaults/DefaultHeader.dart';
 import 'package:bookit_app/widgets/defaults/DefaultSubHeader.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bookit_app/utils/snackbar.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -48,7 +45,7 @@ class BookInformation extends StatelessWidget {
           child: DefaultButton(
             title: "Skicka bytesförfrågan",
             onPressed: () {
-              sendMail();
+              sendMail('adde-16@hotmail.com', "uganda@123.com");
               Navigator.of(context).pop();
             },
           ),
@@ -57,7 +54,7 @@ class BookInformation extends StatelessWidget {
     );
   }
 
-  sendMail() async {
+  sendMail(toEmail, fromEmail) async {
     String u = "bookit.message@gmail.com";
     String p = "Sommar2020";
     final smtpServer = gmail(u, p);
@@ -67,11 +64,11 @@ class BookInformation extends StatelessWidget {
     //TODO: Current user.
     final message = Message()
       ..from = Address(u)
-      ..recipients.add('adde-16@hotmail.com')
+      ..recipients.add(toEmail)
       ..subject =
           'BookIt App - En ny bytesförfrågan på ${data.title}! - ${formattedDate()}'
       ..text =
-          'Det har kommit in ett nytt bytesförslag på ${data.title} av ${data.author}.\nAnvändaren har email adressen: ..., skicka ett email och diskutera vidare.';
+          'Det har kommit in ett nytt bytesförslag på ${data.title} av ${data.author}.\nAnvändaren har email adressen: $fromEmail \nSkicka ett email och diskutera vidare!';
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString());
