@@ -1,10 +1,10 @@
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/screens/book_information.dart';
-import 'package:bookit_app/utils/dummyData.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultCard.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
-import 'package:bookit_app/widgets/SearchBar.dart';
-import 'package:bookit_app/widgets/defaults/DefaultModal.dart';
+import 'package:bookit_app/utils/dummy_data.dart';
+import 'package:bookit_app/widgets/defaults/default_card.dart';
+import 'package:bookit_app/widgets/defaults/default_header.dart';
+import 'package:bookit_app/widgets/defaults/default_modal.dart';
+import 'package:bookit_app/widgets/search_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide Colors;
 
@@ -65,7 +65,6 @@ class _SearchScreenState extends State<SearchScreen> {
       key: ValueKey(newBook.title),
       data: newBook,
       onTap: () {
-        //newBook.reference.updateData({'status': "Sold"});
         createDefaultModal(context, BookInformation(data: newBook));
       },
     );

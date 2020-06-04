@@ -97,7 +97,7 @@ class _DefaultAddImageState extends State<DefaultAddImage> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: _image == null
-              ? AssetImage("lib/assets/transparent.png")
+              ? AssetImage("assets/transparent.png")
               : FileImage(
                   _image,
                 ),

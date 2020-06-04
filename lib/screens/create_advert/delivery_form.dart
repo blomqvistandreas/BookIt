@@ -44,79 +44,90 @@ class _DeliveryFormState extends State<DeliveryForm> {
               "Du har valt att posta din bok, här väljer du vem som får stå för fraktkostnader. Tänk på att det går snabbare att hitta en matchning om man väljer att betala för frakten.",
               style: TextStyle(fontSize: 14),
             ),
-            Row(
-              children: [
-                Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  checkColor: Colors.primary,
-                  activeColor: Colors.transparent,
-                  value: _shippingCostsCreater,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _shippingCostsCreater = value;
-                      widget.shippingCostsCreater(value);
-                      _shippingCostsReciever = false;
-                      widget.shippingCostsReciever(false);
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Text("Jag betalar fraktkostnaderna för denna bok.",
-                      style: TextStyle(fontSize: 12)),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  checkColor: Colors.primary,
-                  activeColor: Colors.transparent,
-                  value: _shippingCostsReciever,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _shippingCostsReciever = value;
-                      widget.shippingCostsReciever(value);
-                      _shippingCostsCreater = false;
-                      widget.shippingCostsCreater(false);
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Text(
-                      "Mottagaren får betala fraktkostnaderna för denna bok.",
-                      style: TextStyle(fontSize: 12)),
-                ),
-              ],
-            ),
+            buildPaidCheckbox(),
+            buildNotPaidCheckbox(),
             Divider(),
             Text(
                 "Du förväntas skicka boken inom 48 timmar efter eventuell matchning. För mer information läs Shipping Agreement."),
             SizedBox(height: 5),
-            Row(
-              children: [
-                Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  checkColor: Colors.primary,
-                  activeColor: Colors.transparent,
-                  value: _shippingAgreement,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.shippingAgreement(value);
-                      _shippingAgreement = value;
-                    });
-                  },
-                ),
-                Expanded(
-                  child: Text(
-                      "Jag accepterar Shipping Agreement och kommer att skicka boken inom 48 timmar.",
-                      style: TextStyle(fontSize: 12)),
-                ),
-              ],
-            ),
+            buildAgreementCheckbox(),
           ],
         ),
       ),
+    );
+  }
+
+  Row buildAgreementCheckbox() {
+    return Row(
+      children: [
+        Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          checkColor: Colors.primary,
+          activeColor: Colors.transparent,
+          value: _shippingAgreement,
+          onChanged: (bool value) {
+            setState(() {
+              widget.shippingAgreement(value);
+              _shippingAgreement = value;
+            });
+          },
+        ),
+        Expanded(
+          child: Text(
+              "Jag accepterar Shipping Agreement och kommer att skicka boken inom 48 timmar.",
+              style: TextStyle(fontSize: 12)),
+        ),
+      ],
+    );
+  }
+
+  Row buildNotPaidCheckbox() {
+    return Row(
+      children: [
+        Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          checkColor: Colors.primary,
+          activeColor: Colors.transparent,
+          value: _shippingCostsReciever,
+          onChanged: (bool value) {
+            setState(() {
+              _shippingCostsReciever = value;
+              widget.shippingCostsReciever(value);
+              _shippingCostsCreater = false;
+              widget.shippingCostsCreater(false);
+            });
+          },
+        ),
+        Expanded(
+          child: Text("Mottagaren får betala fraktkostnaderna för denna bok.",
+              style: TextStyle(fontSize: 12)),
+        ),
+      ],
+    );
+  }
+
+  Row buildPaidCheckbox() {
+    return Row(
+      children: [
+        Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          checkColor: Colors.primary,
+          activeColor: Colors.transparent,
+          value: _shippingCostsCreater,
+          onChanged: (bool value) {
+            setState(() {
+              _shippingCostsCreater = value;
+              widget.shippingCostsCreater(value);
+              _shippingCostsReciever = false;
+              widget.shippingCostsReciever(false);
+            });
+          },
+        ),
+        Expanded(
+          child: Text("Jag betalar fraktkostnaderna för denna bok.",
+              style: TextStyle(fontSize: 12)),
+        ),
+      ],
     );
   }
 

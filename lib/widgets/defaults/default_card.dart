@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bookit_app/functions/displayDeliveryText.dart';
+import 'package:bookit_app/functions/display_delivery_text.dart';
 import 'package:bookit_app/models/new_book.dart';
 import 'package:bookit_app/styles/colors.dart';
 import 'package:flutter/material.dart' hide Colors;
@@ -91,6 +91,7 @@ class DefaultCard extends StatelessWidget {
                             IconButton(
                               icon: Icon(Icons.keyboard_arrow_right),
                               color: Colors.grey,
+                              onPressed: () => null,
                             ),
                           ],
                         ),

@@ -42,7 +42,6 @@ class _SearchBarState extends State<SearchBar> {
                       _enteredText = text;
                     });
                   }
-                  //TODO: SearchBar functionallity
                   //widget.textInput(text);
                   print("$text");
                 },

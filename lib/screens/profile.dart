@@ -1,10 +1,8 @@
-import 'package:bookit_app/widgets/defaults/DefaultAddImage.dart';
-import 'package:bookit_app/widgets/defaults/DefaultButton.dart';
-import 'package:bookit_app/widgets/defaults/DefaultHeader.dart';
-import 'package:bookit_app/widgets/defaults/DefaultTextField.dart';
+import 'package:bookit_app/widgets/defaults/default_add_image.dart';
+import 'package:bookit_app/widgets/defaults/default_button.dart';
+import 'package:bookit_app/widgets/defaults/default_header.dart';
+import 'package:bookit_app/widgets/defaults/default_textfield.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

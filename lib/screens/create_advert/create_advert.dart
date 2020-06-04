@@ -1,20 +1,18 @@
 import 'dart:io';
-import 'package:bookit_app/screens/create_advert/delivery_form.dart';
-import 'package:bookit_app/screens/create_advert/meet_form.dart';
-import 'package:bookit_app/styles/colors.dart';
-import 'package:bookit_app/utils/snackbar.dart';
-import 'package:bookit_app/widgets/MultilineTextField.dart';
-import 'package:uuid/uuid.dart';
-import 'package:bookit_app/models/new_book.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultAddImage.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultButton.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultHeader.dart';
-import 'package:bookit_app/widgets/Defaults/DefaultTextField.dart';
-import 'package:bookit_app/widgets/DeliveryDropdown.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart' hide Colors;
-import 'package:intl/intl.dart';
+
+import '../../functions/submitted_all_fields.dart';
+import '../../models/new_book.dart';
+import '../../services/create_new_advert.dart';
+import '../../widgets/defaults/default_add_image.dart';
+import '../../widgets/defaults/default_button.dart';
+import '../../widgets/defaults/default_header.dart';
+import '../../widgets/defaults/default_textfield.dart';
+import '../../widgets/delivery_dropdown.dart';
+import '../../widgets/multiline_textfield.dart';
+import 'delivery_form.dart';
+import 'meet_form.dart';
 
 class CreateAdvert extends StatefulWidget {
   @override
@@ -25,7 +23,6 @@ class _CreateAdvertState extends State<CreateAdvert> {
   final controllerTitle = TextEditingController();
   final controllerAuthor = TextEditingController();
   NewBook _newBook = NewBook();
-  final databaseReference = Firestore.instance;
   File _image;
 
   var _displayMeetUpForm = false;
@@ -84,7 +81,12 @@ class _CreateAdvertState extends State<CreateAdvert> {
           title: "Fortsätt",
           horizontalPadding: 20.0,
           onPressed: () {
-            submittedAllFields();
+            submittedAllFields(
+              context,
+              _newBook,
+              _image,
+              createAdvert(context, _newBook, _image),
+            );
           },
         ),
       ],
@@ -153,70 +155,5 @@ class _CreateAdvertState extends State<CreateAdvert> {
         _newBook.title = text;
       },
     );
-  }
-
-  Future<String> _uploadImage(File image) async {
-    var uuid = new Uuid();
-    StorageReference reference =
-        FirebaseStorage.instance.ref().child('images/${uuid.v1()}');
-    StorageUploadTask uploadTask = reference.putFile(image);
-
-    StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
-
-    String location = (await downloadUrl.ref.getDownloadURL());
-    print("URL: $location");
-    return location;
-  }
-
-  submittedAllFields() {
-    if (_newBook.title != null &&
-        _newBook.author != null &&
-        _newBook.description != null &&
-        _image != null) {
-      if (_newBook.delivery == "DELIVERY") {
-        if ((_newBook.shippingCostsCreator || _newBook.shippingCostsReciever) &&
-            _newBook.shippingAgreement) {
-          createAdvert();
-        } else {
-          createSnackBar(context, "Missing information");
-        }
-      } else if (_newBook.delivery == "MEET") {
-        if (_newBook.meetCity != null && _newBook.meetUpAgreement) {
-          createAdvert();
-        } else {
-          createSnackBar(context, "Missing information");
-        }
-      } else {
-        createSnackBar(context, "Missing information");
-      }
-    }
-  }
-
-  createRecord() async {
-    var now = new DateTime.now();
-    var normalFormat = new DateFormat('yyyy-MM-dd');
-    String formattedDate = normalFormat.format(now);
-
-    DocumentReference ref = await databaseReference.collection("books").add({
-      'date': formattedDate,
-      'title': _newBook.title,
-      'author': _newBook.author,
-      'image': await _uploadImage(_image),
-      'delivery': _newBook.delivery,
-      'description': _newBook.description,
-      'shipping_agreement': _newBook.shippingAgreement,
-      'shipping_cost_creator': _newBook.shippingCostsCreator,
-      'shipping_cost_reciever': _newBook.shippingCostsReciever,
-      'meet_city': _newBook.meetCity,
-      'meet_up_agreement': _newBook.meetUpAgreement,
-      'status': _newBook.status,
-    });
-    print(ref.documentID);
-  }
-
-  createAdvert() {
-    _newBook.status = "Online";
-    createRecord();
-    Navigator.of(context).pop();
   }
 }

@@ -2,7 +2,7 @@ import 'package:bookit_app/screens/advert.dart';
 import 'package:bookit_app/screens/notification.dart';
 import 'package:bookit_app/screens/profile.dart';
 import 'package:bookit_app/screens/search.dart';
-import 'package:bookit_app/widgets/defaults/DefaultModal.dart';
+import 'package:bookit_app/widgets/defaults/default_modal.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:bookit_app/styles/colors.dart';
 

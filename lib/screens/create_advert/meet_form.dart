@@ -1,5 +1,5 @@
 import 'package:bookit_app/styles/colors.dart';
-import 'package:bookit_app/widgets/defaults/DefaultTextField.dart';
+import 'package:bookit_app/widgets/defaults/default_textfield.dart';
 import 'package:flutter/material.dart' hide Colors;
 
 class MeetForm extends StatefulWidget {
@@ -56,31 +56,35 @@ class _MeetFormState extends State<MeetForm> {
               Text(
                   "Din säkerhet är viktig! Läs igenom vårat Meet Up Agreement."),
               SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    checkColor: Colors.primary,
-                    activeColor: Colors.transparent,
-                    value: _meetUpAgreement,
-                    onChanged: (bool value) {
-                      setState(() {
-                        widget.meetUpAgreement(value);
-                        _meetUpAgreement = value;
-                      });
-                    },
-                  ),
-                  Expanded(
-                    child: Text(
-                        "Jag har nogrannt läst igenom och samtycker till Meet Up Agreement.",
-                        style: TextStyle(fontSize: 12)),
-                  ),
-                ],
-              ),
+              buildAgreementCheckbox(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row buildAgreementCheckbox() {
+    return Row(
+      children: [
+        Checkbox(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          checkColor: Colors.primary,
+          activeColor: Colors.transparent,
+          value: _meetUpAgreement,
+          onChanged: (bool value) {
+            setState(() {
+              widget.meetUpAgreement(value);
+              _meetUpAgreement = value;
+            });
+          },
+        ),
+        Expanded(
+          child: Text(
+              "Jag har nogrannt läst igenom och samtycker till Meet Up Agreement.",
+              style: TextStyle(fontSize: 12)),
+        ),
+      ],
     );
   }
 
